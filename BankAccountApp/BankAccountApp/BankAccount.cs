@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BankAccountApp
@@ -27,7 +28,7 @@ namespace BankAccountApp
             private set { listaOperatii = value; }
         }
 
-        
+
 
 
         public ACCOUNT_STATUS AccountStatus
@@ -37,7 +38,7 @@ namespace BankAccountApp
         }
 
 
-        public Owner Owner
+        public Owner AccountOwner
         {
             get { return owner; }
             set { owner = value; }
@@ -51,7 +52,7 @@ namespace BankAccountApp
 
         public BankAccount(string accountID, Owner owner, DateTime creationDate) : base(accountID, creationDate)
         {
-            this.Owner = owner;
+            this.AccountOwner = owner;
             OpenAccount();
             this.Balance = 0;  //initial amount
             this.ListaOperatii = new List<Operation>();
@@ -94,7 +95,7 @@ namespace BankAccountApp
         public void PrintAccountOperations()
         {
             //afisare informatii cont si titular cont
-            Console.WriteLine($"Lista operatii pentru contul {this.AccountID}, titular {this.Owner}, stare {this.AccountStatus}");
+            Console.WriteLine($"Lista operatii pentru contul {this.AccountID}, titular {this.AccountOwner.Name}, CNP: {this.AccountOwner.CNP}, stare {this.AccountStatus}");
             //afisare lista persoanelor autorizate pe acest cont
             Console.WriteLine("Persoane autorizate pe acest cont:");
             foreach (var persoana in ListaPersoaneAutorizate)
@@ -108,7 +109,10 @@ namespace BankAccountApp
                 Console.WriteLine($"Tip tranzactie: {operatie.OperationType}, valoare: {operatie.OperationAmount}");
             }
             Console.WriteLine($"Sold final: {this.Balance}");
-            Console.WriteLine($"Numar total de tranzactii: {this.ListaOperatii.Count}");
+            int numberOfDepositOperations = listaOperatii.Count(x => x.OperationType == Operation.OPERATION_TYPE.DEPOSIT);
+            int numberOfWitdrawalOperations = ListaOperatii.Count(x => x.OperationType == Operation.OPERATION_TYPE.WITHDRAWAL);
+            Console.WriteLine($"Numar total de tranzactii: {this.ListaOperatii.Count}, din care " +
+                $" depuneri: {numberOfDepositOperations}, retrageri: {numberOfWitdrawalOperations}");
             ////////////////////////
             
             ///////
