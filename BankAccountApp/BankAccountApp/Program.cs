@@ -19,6 +19,7 @@ namespace BankAccountApp
 
             myAccount.DepositMoney(150);
             myAccount.DepositMoney(133);
+            myAccount.AddAuthorizedPerson(new AuthorizedPerson("Sotia", AuthorizedPerson.ROLE.TUTOR));
             myAccount.WithdrawMoney(55);
             myAccount.PrintAccountOperations();
         }

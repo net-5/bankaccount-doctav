@@ -12,12 +12,22 @@ namespace BankAccountApp
         private Owner owner;
         private ACCOUNT_STATUS accountStatus;
         private List<Operation> listaOperatii;
+        private List<AuthorizedPerson> listaPersoaneAutorizate;   //adica imputernicitii pe cont 
+
+        public List<AuthorizedPerson> ListaPersoaneAutorizate
+        {
+            get { return listaPersoaneAutorizate; }
+            set { listaPersoaneAutorizate = value; }
+        }
+
 
         public List<Operation> ListaOperatii
         {
             get { return listaOperatii; }
             private set { listaOperatii = value; }
         }
+
+        
 
 
         public ACCOUNT_STATUS AccountStatus
@@ -45,6 +55,7 @@ namespace BankAccountApp
             OpenAccount();
             this.Balance = 0;  //initial amount
             this.ListaOperatii = new List<Operation>();
+            this.ListaPersoaneAutorizate = new List<AuthorizedPerson>();
         }
 
         public void DepositMoney(decimal amount)
@@ -75,16 +86,32 @@ namespace BankAccountApp
             this.AccountStatus = ACCOUNT_STATUS.OPEN;  //pe ideea ca un cont inchis poate fi redeschis la un moment dat (de exemplu, daca este in litigiu intre mostenitori sau cu ANAF
         }
 
+        public void AddAuthorizedPerson(AuthorizedPerson person)
+        {
+            this.ListaPersoaneAutorizate.Add(person);
+        }
+
         public void PrintAccountOperations()
         {
+            //afisare informatii cont si titular cont
             Console.WriteLine($"Lista operatii pentru contul {this.AccountID}, titular {this.Owner}, stare {this.AccountStatus}");
+            //afisare lista persoanelor autorizate pe acest cont
+            Console.WriteLine("Persoane autorizate pe acest cont:");
+            foreach (var persoana in ListaPersoaneAutorizate)
+            {
+                Console.WriteLine($"Persoana autorizata: {persoana.Name}, rol: {persoana.Role}");
+            }
+            //afisare lista operatiunilor pe acest cont
+            Console.WriteLine("Lista operatii:");
             foreach (var operatie in ListaOperatii)
             {
                 Console.WriteLine($"Tip tranzactie: {operatie.OperationType}, valoare: {operatie.OperationAmount}");
             }
             Console.WriteLine($"Sold final: {this.Balance}");
             Console.WriteLine($"Numar total de tranzactii: {this.ListaOperatii.Count}");
-
+            ////////////////////////
+            
+            ///////
 
             Console.WriteLine("----------------------------------");
         }
