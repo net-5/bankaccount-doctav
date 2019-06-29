@@ -44,6 +44,7 @@ namespace BankAccountApp
             this.Owner = owner;
             OpenAccount();
             this.Balance = 0;  //initial amount
+            this.ListaOperatii = new List<Operation>();
         }
 
         public void DepositMoney(decimal amount)
@@ -83,6 +84,9 @@ namespace BankAccountApp
             }
             Console.WriteLine($"Sold final: {this.Balance}");
             Console.WriteLine($"Numar total de tranzactii: {this.ListaOperatii.Count}");
+
+
+            Console.WriteLine("----------------------------------");
         }
     }
 }
