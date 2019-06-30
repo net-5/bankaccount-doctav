@@ -7,11 +7,11 @@ namespace BankAccountApp
 {
     class BankAccount : GeneralAccount, IAccountOperations
     {
-        public enum ACCOUNT_STATUS { OPEN, CLOSED };
+        public enum Account_Status { Open, Closed };
 
         private decimal balance;
         private Owner owner;
-        private ACCOUNT_STATUS accountStatus;
+        private Account_Status accountStatus;
         private List<Operation> listaOperatii;
         private List<AuthorizedPerson> listaPersoaneAutorizate;   //adica imputernicitii pe cont 
 
@@ -31,7 +31,7 @@ namespace BankAccountApp
 
 
 
-        public ACCOUNT_STATUS AccountStatus
+        public Account_Status AccountStatus
         {
             get { return accountStatus; }
             set { accountStatus = value; }
@@ -50,7 +50,12 @@ namespace BankAccountApp
             protected set { balance = value; }
         }
 
-        public BankAccount(string accountID, Owner owner, DateTime creationDate) : base(accountID, creationDate)
+
+        public decimal CheckBalance()
+        {
+            return Balance;
+        }
+        public BankAccount(string accountID, Owner owner) : base(accountID)
         {
             this.AccountOwner = owner;
             OpenAccount();
@@ -61,7 +66,7 @@ namespace BankAccountApp
 
         public void DepositMoney(decimal amount)
         {
-            if (this.AccountStatus == ACCOUNT_STATUS.OPEN && amount >= 0)  //depunerea trebuie sa fie mereu cu valoarea pozitiva; nu acceptam "depuneri negative"
+            if (this.AccountStatus == Account_Status.Open && amount >= 0)  //depunerea trebuie sa fie mereu cu valoarea pozitiva; nu acceptam "depuneri negative"
             {
                 this.Balance = this.Balance + amount;
                 this.ListaOperatii.Add(new Operation(Operation.OPERATION_TYPE.DEPOSIT, amount));  //adaug in istoricul operatiilor pe cea curenta
@@ -70,21 +75,22 @@ namespace BankAccountApp
 
         public void WithdrawMoney(decimal amount)
         {
-            if (this.AccountStatus == ACCOUNT_STATUS.OPEN && amount >= 0)  //retragerea trebuie sa fie mereu cu valoarea pozitiva; nu acceptam "retrageri negative" deoarece ar fi de fapt niste depuneri
+            if (this.AccountStatus == Account_Status.Open && amount >= 0)  //retragerea trebuie sa fie mereu cu valoarea pozitiva; nu acceptam "retrageri negative" deoarece ar fi de fapt niste depuneri
             {
                 this.Balance = this.Balance - amount;
                 this.ListaOperatii.Add(new Operation(Operation.OPERATION_TYPE.WITHDRAWAL, amount));
             }
         }
 
+
         public void CloseAccount()
         {
-            this.AccountStatus = ACCOUNT_STATUS.CLOSED;
+            this.AccountStatus = Account_Status.Closed;
         }
 
         public void OpenAccount()
         {
-            this.AccountStatus = ACCOUNT_STATUS.OPEN;  //pe ideea ca un cont inchis poate fi redeschis la un moment dat (de exemplu, daca este in litigiu intre mostenitori sau cu ANAF
+            this.AccountStatus = Account_Status.Open;  //pe ideea ca un cont inchis poate fi redeschis la un moment dat (de exemplu, daca este in litigiu intre mostenitori sau cu ANAF
         }
 
         public void AddAuthorizedPerson(AuthorizedPerson person)

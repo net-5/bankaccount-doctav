@@ -9,7 +9,7 @@ namespace BankAccountApp
             Console.WriteLine("Hello World! Let's do some operations with bank account!");
             Owner accountOwner = new Owner("Octavian", 1223344, new DateTime(2000, 02, 06));
 
-            BankAccount myAccount = new BankAccount("RO48RNCB12345678", accountOwner,DateTime.Now);
+            BankAccount myAccount = new BankAccount("RO48RNCB12345678", accountOwner);
 
             myAccount.PrintAccountOperations();
 
@@ -19,7 +19,7 @@ namespace BankAccountApp
 
             myAccount.DepositMoney(150);
             myAccount.DepositMoney(133);
-            myAccount.AddAuthorizedPerson(new AuthorizedPerson("Sotia", AuthorizedPerson.ROLE.TUTOR));
+            myAccount.AddAuthorizedPerson(new AuthorizedPerson("Sotia", AuthorizedPerson.Roles.TUTOR));
             myAccount.WithdrawMoney(55);
             myAccount.PrintAccountOperations();
         }

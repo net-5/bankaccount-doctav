@@ -22,10 +22,10 @@ namespace BankAccountApp
             private set { accountID = value; }
         }
 
-        public GeneralAccount(string accountID, DateTime pCreationDate)
+        public GeneralAccount(string accountID)
         {
             AccountID = accountID;
-            CreationDate = pCreationDate;
+            CreationDate = DateTime.Now ;
         }
     }
 }

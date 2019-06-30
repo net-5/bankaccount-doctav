@@ -6,17 +6,17 @@ namespace BankAccountApp
 {
     class AuthorizedPerson : GeneralPerson
     {
-        public enum ROLE { TUTOR, LEGAL_AUTHORIZED_PERSON}
+        public enum Roles { TUTOR, LEGAL_AUTHORIZED_PERSON}
 
-        private ROLE role;
+        private Roles role;
 
-        public ROLE Role
+        public Roles Role
         {
             get { return role; }
             set { role = value; }
         }
 
-        public AuthorizedPerson(string pName,ROLE role):base(pName)
+        public AuthorizedPerson(string pName,Roles role):base(pName)
         {
             this.Role = role;
         }
