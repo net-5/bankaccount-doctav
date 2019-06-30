@@ -112,7 +112,7 @@ namespace BankAccountApp
             Console.WriteLine("Lista operatii:");
             foreach (var operatie in ListaOperatii)
             {
-                Console.WriteLine($"Tip tranzactie: {operatie.OperationType}, valoare: {operatie.OperationAmount}");
+                Console.WriteLine($"Tip tranzactie: {operatie.OperationType}, valoare: {operatie.OperationAmount}"); 
             }
             Console.WriteLine($"Sold final: {this.Balance}");
             int numberOfDepositOperations = listaOperatii.Count(x => x.OperationType == Operation.OPERATION_TYPE.DEPOSIT);
